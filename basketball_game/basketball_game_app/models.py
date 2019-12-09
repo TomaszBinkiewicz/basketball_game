@@ -33,9 +33,22 @@ class Players(models.Model):
         return age
 
 
+class Quarter(models.Model):
+    score_team_home = models.IntegerField()
+    score_team_away = models.IntegerField()
+
+
 class Games(models.Model):
     team_home = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='home_games')
     team_away = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='away_games')
+    q1 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='first_q')
+    q2 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='second_q')
+    q3 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='third_q')
+    q4 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='fourth_q')
+
+
+class Overtime(models.Model):
+    game = models.ForeignKey(Games, on_delete=models.CASCADE)
     score_team_home = models.IntegerField()
     score_team_away = models.IntegerField()
 
