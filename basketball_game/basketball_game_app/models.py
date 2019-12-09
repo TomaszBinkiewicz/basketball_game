@@ -4,8 +4,8 @@ from datetime import date
 
 class Teams(models.Model):
     name = models.CharField(max_length=64)
-    games_played = models.IntegerField()
-    games_won = models.IntegerField()
+    games_played = models.IntegerField(default=0)
+    games_won = models.IntegerField(default=0)
 
     @property
     def games_lost(self):
