@@ -1,0 +1,6 @@
+{% include 'basketball_game_app/menu.html' %}
+<h3>Add new team</h3>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>

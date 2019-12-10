@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('all-teams/', views.AllTeamsView.as_view(), name='all-teams'),
     path('team/<int:pk>/', views.TeamDetailView.as_view(), name='team-detail'),
+    path('add-team/', views.TeamCreate.as_view(), name='add-team'),
+    path('edit-team/<int:pk>/', views.TeamUpdate.as_view(), name='edit-team'),
 ]

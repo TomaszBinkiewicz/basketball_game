@@ -9,6 +9,7 @@ from django.views.generic import (FormView,
                                   DetailView,
                                   DeleteView,
                                   UpdateView,
+                                  CreateView,
                                   )
 
 
@@ -22,3 +23,15 @@ class AllTeamsView(View):
 
 class TeamDetailView(DetailView):
     model = Teams
+
+
+class TeamCreate(CreateView):
+    model = Teams
+    fields = '__all__'
+    template_name = 'basketball_game_app/add_team.html'
+
+
+class TeamUpdate(UpdateView):
+    model = Teams
+    fields = '__all__'
+    template_name_suffix = '_update_form'
