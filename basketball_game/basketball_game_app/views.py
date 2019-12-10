@@ -119,3 +119,13 @@ class GameView(View):
         if quarter < 5:
             quarter += 1
         return redirect('game-view', pk, quarter)
+
+
+class AllGamesView(View):
+    def get(self, request):
+        all_games = Games.objects.all().order_by('-date')
+        return render(request, 'basketball_game_app/all_games.html', context={'games': all_games})
+
+
+class GameDetailView(DetailView):
+    model = Games

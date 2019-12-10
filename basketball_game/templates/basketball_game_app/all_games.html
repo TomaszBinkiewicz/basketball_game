@@ -1,0 +1,6 @@
+{% include 'basketball_game_app/menu.html' %}
+<ul>
+{% for game in games %}
+<li><a href="{% url 'game-detail' game.id %}">{{ game }}</a></li>
+{% endfor %}
+</ul>
