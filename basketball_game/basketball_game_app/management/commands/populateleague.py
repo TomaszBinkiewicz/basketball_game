@@ -8,5 +8,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         create_teams()
         self.stdout.write(self.style.SUCCESS("Succesfully added teams"))
-        create_players()
+        create_players(5)
         self.stdout.write(self.style.SUCCESS("Succesfully created players"))

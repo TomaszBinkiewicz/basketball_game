@@ -2,12 +2,15 @@ from django.db import models
 from datetime import date
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=64)
+
+
 class Teams(models.Model):
-    conference = ((0, 'EAST'), (1, 'WEST'))
     name = models.CharField(max_length=64)
     games_played = models.IntegerField(default=0)
     games_won = models.IntegerField(default=0)
-    conference = models.IntegerField(choices=conference)
+    conference = models.ForeignKey(Group, on_delete=models.DO_NOTHING, null=True)
 
     @property
     def games_lost(self):

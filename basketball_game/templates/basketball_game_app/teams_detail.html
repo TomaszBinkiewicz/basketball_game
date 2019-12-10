@@ -1,0 +1,7 @@
+{% include 'basketball_game_app/menu.html' %}
+<h2>{{ object.name }}</h2>
+<p><strong>Conference </strong>{{ object.conference.name }}</p>
+<p><strong>Games played </strong>{{ object.games_played }}</p>
+<p><strong>Wins </strong>{{ object.games_won }}</p>
+<p><strong>Losses </strong>{{ object.games_lost }}</p>
+<p><strong>Win % </strong>{% if object.games_played == 0 %}0{% else %}{{ object.wins_percentage }}{% endif %}</p>
