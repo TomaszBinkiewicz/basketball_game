@@ -1,0 +1,40 @@
+{% include 'basketball_game_app/menu.html' %}
+<button>Q1</button>
+<button>Q2</button>
+<button>Q3</button>
+<button>Q4</button>
+<button>OT</button>
+<div id="game-data">
+    <form method="post">
+        <div id="div_team1" style="display: inline-block">
+            <table>
+                <tr>
+                    <th>{{ game_data.team_home }}</th>
+                </tr>
+                <tr>
+                    <th>
+                        <label>Points:
+                            <input type="text" name="team_home_score">
+                        </label>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div id="div_team2" style="display: inline-block">
+            <table>
+                <tr>
+                    <th>{{ game_data.team_away }}</th>
+                </tr>
+                <tr>
+                    <th>
+                        <label>Points:
+                            <input type="text" name="team_away_score">
+                        </label>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <button type="submit">end of quarter</button>
+        {% csrf_token %}
+    </form>
+</div>

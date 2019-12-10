@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from datetime import date
 
@@ -47,22 +48,22 @@ class Players(models.Model):
         return f'{self.last_name} {self.first_name}, {self.team}'
 
 
-class Quarter(models.Model):
-    score_team_home = models.IntegerField()
-    score_team_away = models.IntegerField()
-
-
 class Games(models.Model):
+    date = models.DateField()
     team_home = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='home_games')
     team_away = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='away_games')
-    q1 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='first_q')
-    q2 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='second_q')
-    q3 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='third_q')
-    q4 = models.ForeignKey(Quarter, on_delete=models.CASCADE, related_name='fourth_q')
 
 
-class Overtime(models.Model):
+class Part(models.Model):
+    choices = (
+        (1, 'Q1'),
+        (2, 'Q2'),
+        (3, 'Q3'),
+        (4, 'Q4'),
+        (5, 'OT'),
+    )
     game = models.ForeignKey(Games, on_delete=models.CASCADE)
+    name = models.IntegerField(choices=choices)
     score_team_home = models.IntegerField()
     score_team_away = models.IntegerField()
 

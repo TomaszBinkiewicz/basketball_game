@@ -30,4 +30,6 @@ urlpatterns = [
     path('edit-player/<int:pk>/', views.PlayerUpdate.as_view(), name='edit-player'),
     path('delete-player/<int:pk>/', views.PlayerDelete.as_view(), name='delete-player'),
 
+    path('new-game/', views.NewGameView.as_view(), name='new-game'),
+    path('game/<int:pk>/<int:quarter>', views.GameView.as_view(), name='game-view'),
 ]
