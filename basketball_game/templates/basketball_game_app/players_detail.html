@@ -1,0 +1,7 @@
+{% include 'basketball_game_app/menu.html' %}
+<h2>{{ object.name }}</h2>
+<p><strong>Last name </strong>{{ object.last_name }}</p>
+<p><strong>First name </strong>{{ object.first_name }}</p>
+<p><strong>Date of birth </strong>{{ object.date_of_birth }}</p>
+<p><strong>team </strong>{{ object.team }}</p>
+<a href="{% url 'edit-player' object.id %}">edit</a>

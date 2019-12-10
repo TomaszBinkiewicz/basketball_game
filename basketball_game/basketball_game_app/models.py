@@ -5,6 +5,9 @@ from datetime import date
 class Group(models.Model):
     name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return self.name
+
 
 class Teams(models.Model):
     name = models.CharField(max_length=64)
@@ -19,6 +22,9 @@ class Teams(models.Model):
     @property
     def wins_percentage(self):
         return self.games_won / self.games_played
+
+    def __str__(self):
+        return self.name
 
 
 class Players(models.Model):
@@ -36,6 +42,9 @@ class Players(models.Model):
         else:
             age = now.year - self.date_of_birth.year - 1
         return age
+
+    def __str__(self):
+        return f'{self.last_name} {self.first_name}, {self.team}'
 
 
 class Quarter(models.Model):

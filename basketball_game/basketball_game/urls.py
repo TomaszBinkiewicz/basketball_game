@@ -22,4 +22,9 @@ urlpatterns = [
     path('team/<int:pk>/', views.TeamDetailView.as_view(), name='team-detail'),
     path('add-team/', views.TeamCreate.as_view(), name='add-team'),
     path('edit-team/<int:pk>/', views.TeamUpdate.as_view(), name='edit-team'),
+
+    path('all-players/', views.AllPlayersView.as_view(), name='all-players'),
+    path('player/<int:pk>/', views.PlayerDetailView.as_view(), name='player-detail'),
+    path('add-player/', views.PlayerCreate.as_view(), name='add-player'),
+    path('edit-player/<int:pk>/', views.PlayerUpdate.as_view(), name='edit-player'),
 ]

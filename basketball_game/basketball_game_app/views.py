@@ -3,6 +3,7 @@ from django.views import View
 from basketball_game_app.models import (Teams,
                                         Players,
                                         Games,
+                                        Group,
                                         )
 from django.views.generic import (FormView,
                                   ListView,
@@ -35,3 +36,28 @@ class TeamUpdate(UpdateView):
     model = Teams
     fields = '__all__'
     template_name_suffix = '_update_form'
+
+
+class PlayerDetailView(DetailView):
+    model = Players
+
+
+class PlayerCreate(CreateView):
+    model = Players
+    fields = '__all__'
+    template_name = 'basketball_game_app/add_player.html'
+
+
+class PlayerUpdate(UpdateView):
+    model = Players
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+
+class AllPlayersView(View):
+    def get(self, request):
+        all_players = Players.objects.all()
+        teams = Teams.objects.all()
+        groups = Group.objects.all()
+        return render(request, 'basketball_game_app/all_players.html',
+                      context={'players': all_players, 'teams': teams, 'groups': groups})
