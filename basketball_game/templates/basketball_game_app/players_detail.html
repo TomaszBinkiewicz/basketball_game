@@ -5,3 +5,4 @@
 <p><strong>Date of birth </strong>{{ object.date_of_birth }}</p>
 <p><strong>team </strong>{{ object.team }}</p>
 <a href="{% url 'edit-player' object.id %}">edit</a>
+<a href="{% url 'delete-player' object.id %}">delete</a>

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import View
 from basketball_game_app.models import (Teams,
                                         Players,
@@ -38,6 +39,12 @@ class TeamUpdate(UpdateView):
     template_name_suffix = '_update_form'
 
 
+class TeamDelete(DeleteView):
+    model = Teams
+    template_name = 'basketball_game_app/delete_form.html'
+    success_url = reverse_lazy('all-teams')
+
+
 class PlayerDetailView(DetailView):
     model = Players
 
@@ -61,3 +68,9 @@ class AllPlayersView(View):
         groups = Group.objects.all()
         return render(request, 'basketball_game_app/all_players.html',
                       context={'players': all_players, 'teams': teams, 'groups': groups})
+
+
+class PlayerDelete(DeleteView):
+    model = Players
+    template_name = 'basketball_game_app/delete_form.html'
+    success_url = reverse_lazy('all-players')
