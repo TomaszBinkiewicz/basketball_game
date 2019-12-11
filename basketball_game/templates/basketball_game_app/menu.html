@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basketball</title>
+</head>
+<body>
+
+<div class="menu">
+    <a href="{% url 'all-games' %}">All games</a>
+    <a href="{% url 'all-teams' %}">All teams</a>
+    <a href="{% url 'all-players' %}">All players</a>
+    <a href="{% url 'add-team' %}">Add team</a>
+    <a href="{% url 'add-player' %}">Add player</a>
+    <a href="{% url 'new-game' %}">New game</a>
+</div>
+<br>
+{% block content %}
+
+{% endblock %}
+
+{% load static %}
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="{% static "js/game.js" %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends 'basketball_game_app/menu.html' %}
+{% block content %}
+    <p>{{ object.team }}</p>
+    <strong>{{ object }}</strong>
+    <br><br>
+    <table>
+        <tr>
+            <th>team</th>
+            {% for part in object.part_set.all %}
+                {% if part.name < 5 %}
+                    <th>Q{{ part.name }}</th>
+                {% else %}
+                    <th>OT</th>
+                {% endif %}
+            {% endfor %}
+            <th>
+                Total
+            </th>
+        </tr>
+        <tr>
+            <th>{{ object.team_home }}</th>
+            {% for part in object.part_set.all %}
+                <td>{{ part.score_team_home }}</td>
+            {% endfor %}
+            <th>
+                {{ object.team_home_score }}
+            </th>
+        </tr>
+        <tr>
+            <th>{{ object.team_away }}</th>
+            {% for part in object.part_set.all %}
+                <td>{{ part.score_team_away }}</td>
+            {% endfor %}
+            <th>
+                {{ object.team_away_score }}
+            </th>
+        </tr>
+    </table>
+{% endblock %}

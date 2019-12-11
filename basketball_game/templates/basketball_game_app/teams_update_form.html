@@ -1,0 +1,9 @@
+{% extends 'basketball_game_app/menu.html' %}
+{% block content %}
+    <h3>Edit team</h3>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="reset" value="Reset">
+        <input type="submit" value="Update">
+    </form>
+{% endblock %}
