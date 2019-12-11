@@ -52,6 +52,8 @@ class Games(models.Model):
     date = models.DateField()
     team_home = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='home_games')
     team_away = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='away_games')
+    team_home_score = models.IntegerField(null=True)
+    team_away_score = models.IntegerField(null=True)
 
     def __str__(self):
         return f'{self.date}, {self.team_home} vs {self.team_away}'

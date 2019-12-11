@@ -141,6 +141,9 @@ class GameView(View):
         if quarter < 5:
             quarter += 1
         if quarter > 4 and team_away_score_total != team_home_score_total:
+            game.team_away_score = team_away_score_total
+            game.team_home_score = team_home_score_total
+            game.save()
             return redirect('all-games')
         return redirect('game-view', pk, quarter)
 

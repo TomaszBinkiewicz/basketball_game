@@ -13,7 +13,7 @@ class NewGameForm(forms.ModelForm):
 
     class Meta:
         model = Games
-        fields = '__all__'
+        exclude = ['team_home_score', 'team_away_score']
         widgets = {'date': forms.SelectDateWidget}
 
     def clean(self):
