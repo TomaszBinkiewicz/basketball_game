@@ -75,9 +75,6 @@ class Part(models.Model):
 
 class Stats(models.Model):
     game = models.ForeignKey(Games, on_delete=models.CASCADE)
-    player = models.ForeignKey(Players, on_delete=models.SET_NULL, null=True)
-
-    minutes_played = models.IntegerField(default=0)
 
     three_pointers_made = models.IntegerField(default=0)
     three_pointers_attempted = models.IntegerField(default=0)
@@ -95,6 +92,7 @@ class Stats(models.Model):
     turnovers = models.IntegerField(default=0)
 
     personal_fouls = models.IntegerField(default=0)
+    technical_fouls = models.IntegerField(default=0)
 
     @property
     def total_rebounds(self):
@@ -116,3 +114,15 @@ class Stats(models.Model):
     @property
     def p3_percentage(self):
         return self.three_pointers_made / self.three_pointers_attempted
+
+    class Meta:
+        abstract = True
+
+
+class PlayerStats(Stats):
+    player = models.ForeignKey(Players, on_delete=models.SET_NULL, null=True)
+    minutes_played = models.IntegerField(default=0)
+
+
+class TeamStats(Stats):
+    team = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True)
