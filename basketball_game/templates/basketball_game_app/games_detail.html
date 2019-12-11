@@ -1,28 +1,30 @@
-{% include 'basketball_game_app/menu.html' %}
-<p>{{ object.team }}</p>
-<strong>{{ object }}</strong>
-<br><br>
-<table>
-    <tr>
-        <th>team</th>
-        {% for part in object.part_set.all %}
-            {% if part.name < 5 %}
-            <th>Q{{ part.name }}</th>
-            {% else %}
-            <th>OT</th>
-            {% endif %}
-        {% endfor %}
-    </tr>
-    <tr>
-        <th>{{ object.team_home }}</th>
-        {% for part in object.part_set.all %}
-            <td>{{ part.score_team_home }}</td>
-        {% endfor %}
-    </tr>
-    <tr>
-        <th>{{ object.team_away }}</th>
-        {% for part in object.part_set.all %}
-            <td>{{ part.score_team_away }}</td>
-        {% endfor %}
-    </tr>
-</table>
+{% extends 'basketball_game_app/menu.html' %}
+{% block content %}
+    <p>{{ object.team }}</p>
+    <strong>{{ object }}</strong>
+    <br><br>
+    <table>
+        <tr>
+            <th>team</th>
+            {% for part in object.part_set.all %}
+                {% if part.name < 5 %}
+                    <th>Q{{ part.name }}</th>
+                {% else %}
+                    <th>OT</th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>{{ object.team_home }}</th>
+            {% for part in object.part_set.all %}
+                <td>{{ part.score_team_home }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th>{{ object.team_away }}</th>
+            {% for part in object.part_set.all %}
+                <td>{{ part.score_team_away }}</td>
+            {% endfor %}
+        </tr>
+    </table>
+{% endblock %}

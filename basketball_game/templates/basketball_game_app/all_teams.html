@@ -1,14 +1,15 @@
-{% include 'basketball_game_app/menu.html' %}
-<h3>Eastern conference</h3>
-<table>
-<tr>
-    <td>TEAM</td>
-    <td>GP</td>
-    <td>GW</td>
-    <td>GL</td>
-    <td>WIN%</td>
-</tr>
-    {% for team in east %}
+{% extends 'basketball_game_app/menu.html' %}
+{% block content %}
+    <h3>Eastern conference</h3>
+    <table>
+        <tr>
+            <td>TEAM</td>
+            <td>GP</td>
+            <td>GW</td>
+            <td>GL</td>
+            <td>WIN%</td>
+        </tr>
+        {% for team in east %}
             <tr>
                 <td>
                     <a href="{% url 'team-detail' team.id %}">{{ team.name }}</a>
@@ -31,18 +32,18 @@
                 </td>
                 </td>
             </tr>
-{% endfor %}
-</table>
-<h3>Western conference</h3>
-<table>
-<tr>
-    <td>TEAM</td>
-    <td>GP</td>
-    <td>GW</td>
-    <td>GL</td>
-    <td>WIN%</td>
-</tr>
-    {% for team in west %}
+        {% endfor %}
+    </table>
+    <h3>Western conference</h3>
+    <table>
+        <tr>
+            <td>TEAM</td>
+            <td>GP</td>
+            <td>GW</td>
+            <td>GL</td>
+            <td>WIN%</td>
+        </tr>
+        {% for team in west %}
             <tr>
                 <td>
                     <a href="{% url 'team-detail' team.id %}">{{ team.name }}</a>
@@ -65,5 +66,6 @@
                 </td>
                 </td>
             </tr>
-{% endfor %}
-</table>
+        {% endfor %}
+    </table>
+{% endblock %}

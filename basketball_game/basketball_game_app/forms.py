@@ -21,4 +21,4 @@ class NewGameForm(forms.ModelForm):
         team_1 = cleaned_data.get('team_home')
         team_2 = cleaned_data.get('team_away')
         if team_1 == team_2:
-            raise forms.ValidationError('You choose the same team twice')
+            raise forms.ValidationError('You chose the same team twice')
