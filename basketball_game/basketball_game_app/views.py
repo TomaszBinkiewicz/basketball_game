@@ -105,8 +105,6 @@ class GameView(View):
             team_away_score_total = 0
         if team_home_score_total is None or quarter == 1:
             team_home_score_total = 0
-        print(team_away_score_total)
-        print(team_home_score_total)
         return render(request, 'basketball_game_app/game.html',
                       context={'game_data': game, 'quarter': quarter, 'team_home_score_total': team_home_score_total,
                                'team_away_score_total': team_away_score_total})
@@ -119,7 +117,6 @@ class GameView(View):
         team_home_score = request.POST.get('team_home_score')
         team_away_score = request.POST.get('team_away_score')
         if not (validate_positive_int(team_away_score) and validate_positive_int(team_home_score)):
-            print('tutaj')
             return self.get(request, pk, quarter)
         team_away_score = int(team_away_score)
         team_home_score = int(team_home_score)
@@ -127,7 +124,6 @@ class GameView(View):
         team_home_score_total = request.POST.get('team_home_score_total')
         team_away_score_total = request.POST.get('team_away_score_total')
         if not (validate_positive_int(team_away_score_total) and validate_positive_int(team_home_score_total)):
-            print('tutaj')
             return self.get(request, pk, quarter)
         team_away_score_total = int(team_away_score_total)
         team_home_score_total = int(team_home_score_total)
