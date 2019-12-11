@@ -113,6 +113,8 @@ class GameView(View):
 
     def post(self, request, pk, quarter):
         game = Games.objects.get(id=pk)
+        team_home = game.team_home
+        team_away = game.team_away
         # quarter score
         team_home_score = request.POST.get('team_home_score')
         team_away_score = request.POST.get('team_away_score')
@@ -144,6 +146,14 @@ class GameView(View):
             game.team_away_score = team_away_score_total
             game.team_home_score = team_home_score_total
             game.save()
+            team_home.games_played += 1
+            team_away.games_played += 1
+            if team_home_score_total > team_away_score_total:
+                team_home.games_won += 1
+            elif team_away_score_total > team_home_score_total:
+                team_away.games_won += 1
+            team_away.save()
+            team_home.save()
             return redirect('all-games')
         return redirect('game-view', pk, quarter)
 
