@@ -99,10 +99,21 @@ class GameView(View):
 
     def get(self, request, pk, quarter):
         game = Games.objects.get(id=pk)
-        return render(request, 'basketball_game_app/game.html', context={'game_data': game})
+        team_home_score_total = request.session.get('team_home_score_total')
+        team_away_score_total = request.session.get('team_away_score_total')
+        if team_away_score_total is None or quarter == 1:
+            team_away_score_total = 0
+        if team_home_score_total is None or quarter == 1:
+            team_home_score_total = 0
+        print(team_away_score_total)
+        print(team_home_score_total)
+        return render(request, 'basketball_game_app/game.html',
+                      context={'game_data': game, 'quarter': quarter, 'team_home_score_total': team_home_score_total,
+                               'team_away_score_total': team_away_score_total})
 
     def post(self, request, pk, quarter):
         game = Games.objects.get(id=pk)
+        # quarter score
         team_home_score = request.POST.get('team_home_score')
         team_away_score = request.POST.get('team_away_score')
         if not (validate_positive_int(team_away_score) and validate_positive_int(team_home_score)):
@@ -110,6 +121,17 @@ class GameView(View):
             return self.get(request, pk, quarter)
         team_away_score = int(team_away_score)
         team_home_score = int(team_home_score)
+        # game score
+        team_home_score_total = request.POST.get('team_home_score_total')
+        team_away_score_total = request.POST.get('team_away_score_total')
+        if not (validate_positive_int(team_away_score_total) and validate_positive_int(team_home_score_total)):
+            print('tutaj')
+            return self.get(request, pk, quarter)
+        team_away_score_total = int(team_away_score_total)
+        team_home_score_total = int(team_home_score_total)
+        request.session['team_home_score_total'] = team_home_score_total
+        request.session['team_away_score_total'] = team_away_score_total
+
         new_quarter = Part()
         new_quarter.game = game
         new_quarter.name = quarter
@@ -118,6 +140,8 @@ class GameView(View):
         new_quarter.save()
         if quarter < 5:
             quarter += 1
+        if quarter > 4 and team_away_score_total != team_home_score_total:
+            return redirect('all-games')
         return redirect('game-view', pk, quarter)
 
 

@@ -6,11 +6,16 @@
                 <table>
                     <tr>
                         <th colspan="3">{{ game_data.team_home }}</th>
+
                     </tr>
                     <tr>
                         <th colspan="3">
-                            <label>Points:
-                                <input type="text" id="team_home_score" name="team_home_score">
+                            <label>TOT
+                                <input size="5" type="text" id="team_home_score_total" name="team_home_score_total" readonly value="{{team_home_score_total}}">
+                            </label>
+                        <br>
+                            <label>{% if quarter < 5 %}Q{{ quarter }}{% else %}OT{% endif %}
+                                <input size="5" type="text" id="team_home_score" name="team_home_score" readonly>
                             </label>
                         </th>
                     </tr>
@@ -75,8 +80,12 @@
                     </tr>
                     <tr>
                         <th colspan="3">
-                            <label>Points:
-                                <input type="text" id="team_away_score" name="team_away_score">
+                            <label>TOT
+                                <input size="5" type="text" id="team_away_score_total" name="team_away_score_total" value="{{ team_away_score_total }}" readonly>
+                            </label>
+                        <br>
+                            <label>{% if quarter < 5 %}Q{{ quarter }}{% else %}OT{% endif %}
+                                <input size="5" type="text" id="team_away_score" name="team_away_score" readonly>
                             </label>
                         </th>
                     </tr>
