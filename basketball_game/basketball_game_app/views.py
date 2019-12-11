@@ -199,7 +199,7 @@ class SaveTeamStats(View):
         home_pf = request.POST.get("home_PF")
         home_tf = request.POST.get("home_TF")
         try:
-            stats_obj = get_object_or_404(TeamStats, game_id=game_id)
+            stats_obj = get_object_or_404(TeamStats, game_id=game_id, team=home_team)
         except Http404:
             TeamStats.objects.create(game=game, team=home_team, three_pointers_made=home_3pm,
                                      three_pointers_attempted=home_3pa, two_pointers_made=home_2pm,
