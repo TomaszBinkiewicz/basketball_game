@@ -129,7 +129,7 @@ class GameView(View):
         team_home_score_total = int(team_home_score_total)
         request.session['team_home_score_total'] = team_home_score_total
         request.session['team_away_score_total'] = team_away_score_total
-
+        # saving quarter
         new_quarter = Part()
         new_quarter.game = game
         new_quarter.name = quarter

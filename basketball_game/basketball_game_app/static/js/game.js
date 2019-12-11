@@ -19,13 +19,15 @@ $(document).ready(()=>{
         if (isNaN(home_score_total)){
             home_score_total = 0;
         }
-        let add = parseInt($(this).val());
-        home_score += add;
-        home_score_total += add;
-        team_home_score.val(home_score);
-        team_home_score_total.val(home_score_total);
+        if (this.parentElement.parentElement.className === 'team_stats_points') {
+            let add = parseInt($(this).val());
+            home_score += add;
+            home_score_total += add;
+            team_home_score.val(home_score);
+            team_home_score_total.val(home_score_total);
+        }
         let class_name = this.className;
-        let corresponding_field = $(this).parent().parent().next().find(`.${class_name}`);
+        let corresponding_field = $(this).parent().parent().siblings().find(`.${class_name}`);
         if (corresponding_field.length === 2) {
             let current0 = parseInt(corresponding_field.eq(0).text()) + 1;
             let current1 = parseInt(corresponding_field.eq(1).text()) + 1;
@@ -45,11 +47,13 @@ $(document).ready(()=>{
         if (isNaN(away_score_total)){
             away_score_total = 0;
         }
-        let add = parseInt($(this).val());
-        away_score += add;
-        away_score_total += add;
-        team_away_score.val(away_score);
-        team_away_score_total.val(away_score_total);
+        if (this.parentElement.parentElement.className === 'team_stats_points') {
+            let add = parseInt($(this).val());
+            away_score += add;
+            away_score_total += add;
+            team_away_score.val(away_score);
+            team_away_score_total.val(away_score_total);
+        }
         let class_name = this.className;
         let corresponding_field = $(this).parent().parent().next().find(`.${class_name}`);
         if (corresponding_field.length === 2) {
