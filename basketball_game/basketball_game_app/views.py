@@ -129,6 +129,15 @@ class GameView(View):
         team_home_score_total = int(team_home_score_total)
         request.session['team_home_score_total'] = team_home_score_total
         request.session['team_away_score_total'] = team_away_score_total
+        # team stats
+        team_home_score_total = request.POST.get('team_home_score_total')
+        team_away_score_total = request.POST.get('team_away_score_total')
+        if not (validate_positive_int(team_away_score_total) and validate_positive_int(team_home_score_total)):
+            return self.get(request, pk, quarter)
+        team_away_score_total = int(team_away_score_total)
+        team_home_score_total = int(team_home_score_total)
+        request.session['team_home_score_total'] = team_home_score_total
+        request.session['team_away_score_total'] = team_away_score_total
         # saving quarter
         new_quarter = Part()
         new_quarter.game = game
@@ -162,3 +171,44 @@ class AllGamesView(View):
 
 class GameDetailView(DetailView):
     model = Games
+
+
+class SaveTeamStats(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        home_3Pm = request.POST.get("home_3Pm")
+        home_2Pm = request.POST.get("home_2Pm")
+        home_FTm = request.POST.get("home_FTm")
+        home_3Pa = request.POST.get("home_3Pa")
+        home_2Pa = request.POST.get("home_2Pa")
+        home_FTa = request.POST.get("home_FTa")
+        home_OffReb = request.POST.get("home_OffReb")
+        home_DefReb = request.POST.get("home_DefReb")
+        home_Ast = request.POST.get("home_Ast")
+        home_Stl = request.POST.get("home_Stl")
+        home_Blk = request.POST.get("home_Blk")
+        home_Tov = request.POST.get("home_Tov")
+        home_PF = request.POST.get("home_PF")
+        home_TF = request.POST.get("home_TF")
+
+
+"""
+data: {
+    "home_3Pm": home_3Pm,
+    "home_2Pm": home_2Pm,
+    "home_FTm": home_FTm,
+    "home_3Pa": home_3Pa,
+    "home_2Pa": home_2Pa,
+    "home_FTa": home_FTa,
+    "home_OffReb": home_OffReb,
+    "home_DefReb": home_DefReb,
+    "home_Ast": home_Ast,
+    "home_Stl": home_Stl,
+    "home_Blk": home_Blk,
+    "home_Tov": home_Tov,
+    "home_PF": home_PF,
+    "home_TF": home_TF,
+}
+"""

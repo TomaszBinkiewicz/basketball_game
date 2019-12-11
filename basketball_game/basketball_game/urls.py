@@ -36,6 +36,8 @@ urlpatterns = [
     path('game/<int:pk>/<int:quarter>', views.GameView.as_view(), name='game-view'),
     path('all-games/', views.AllGamesView.as_view(), name='all-games'),
     path('game-detail/<int:pk>/', views.GameDetailView.as_view(), name='game-detail'),
+
+    path('save-team-stats/', views.SaveTeamStats.as_view(), name='save-team-stats'),
 ]
 
 
