@@ -74,7 +74,8 @@ $(document).ready(() => {
 
     end_quarter_button.on("click", function (event) {
         // TODO: save stats to db
-        event.preventDefault();
+
+        let game_id = $('form').find('#game_id').val();
 
         let home_3Pm = team_home.find("p.3Pm").eq(0).text();
         let home_2Pm = team_home.find("p.2Pm").eq(0).text();
@@ -93,10 +94,10 @@ $(document).ready(() => {
         let home_PF = team_home.find("p.PF").eq(0).text();
         let home_TF = team_home.find("p.TF").eq(0).text();
 
-        console.log(home_3Pm, home_2Pm, home_FTm, home_3Pa, home_2Pa, home_FTa);
-        $.ajax({
-            url: '/save-team-stats/',
+
+        $.ajax(/save-team-stats/, {
             data: {
+                "game_id": game_id,
                 "home_3Pm": home_3Pm,
                 "home_2Pm": home_2Pm,
                 "home_FTm": home_FTm,
@@ -114,8 +115,8 @@ $(document).ready(() => {
             },
             type: "POST",
             dataType: "json"
-        }).fail(function(event){
-            event.preventDefault();
+        }).success(function(){
+            console.log('succsess')
         })
         // TODO: repeat for guest team
     });

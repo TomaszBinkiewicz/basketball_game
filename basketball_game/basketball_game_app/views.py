@@ -1,5 +1,7 @@
 from datetime import date
-from django.shortcuts import render, redirect
+
+from django.http import Http404, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from basketball_game_app.validators import validate_positive_int
@@ -8,6 +10,7 @@ from basketball_game_app.models import (Teams,
                                         Games,
                                         Group,
                                         Part,
+                                        TeamStats,
                                         )
 from django.views.generic import (FormView,
                                   ListView,
@@ -178,20 +181,51 @@ class SaveTeamStats(View):
         pass
 
     def post(self, request):
-        home_3Pm = request.POST.get("home_3Pm")
-        home_2Pm = request.POST.get("home_2Pm")
-        home_FTm = request.POST.get("home_FTm")
-        home_3Pa = request.POST.get("home_3Pa")
-        home_2Pa = request.POST.get("home_2Pa")
-        home_FTa = request.POST.get("home_FTa")
-        home_OffReb = request.POST.get("home_OffReb")
-        home_DefReb = request.POST.get("home_DefReb")
-        home_Ast = request.POST.get("home_Ast")
-        home_Stl = request.POST.get("home_Stl")
-        home_Blk = request.POST.get("home_Blk")
-        home_Tov = request.POST.get("home_Tov")
-        home_PF = request.POST.get("home_PF")
-        home_TF = request.POST.get("home_TF")
+        game_id = request.POST.get("game_id")
+        game = Games.objects.get(id=game_id)
+        home_team = Teams.objects.get(id=game.team_home_id)
+        home_3pm = request.POST.get("home_3Pm")
+        home_2pm = request.POST.get("home_2Pm")
+        home_ftm = request.POST.get("home_FTm")
+        home_3pa = request.POST.get("home_3Pa")
+        home_2pa = request.POST.get("home_2Pa")
+        home_fta = request.POST.get("home_FTa")
+        home_off_reb = request.POST.get("home_OffReb")
+        home_def_reb = request.POST.get("home_DefReb")
+        home_ast = request.POST.get("home_Ast")
+        home_stl = request.POST.get("home_Stl")
+        home_blk = request.POST.get("home_Blk")
+        home_tov = request.POST.get("home_Tov")
+        home_pf = request.POST.get("home_PF")
+        home_tf = request.POST.get("home_TF")
+        try:
+            stats_obj = get_object_or_404(TeamStats, game_id=game_id)
+        except Http404:
+            TeamStats.objects.create(game=game, team=home_team, three_pointers_made=home_3pm,
+                                     three_pointers_attempted=home_3pa, two_pointers_made=home_2pm,
+                                     two_pointers_attempted=home_2pa, free_throws_made=home_ftm,
+                                     free_throws_attempted=home_fta, off_rebounds=home_off_reb,
+                                     def_rebounds=home_def_reb, assists=home_ast, steals=home_stl, blocks=home_blk,
+                                     turnovers=home_tov, personal_fouls=home_pf, technical_fouls=home_tf)
+            data = {'stats_obj': 'created'}
+        else:
+            stats_obj.three_pointers_made = home_3pm
+            stats_obj.three_pointers_attempted = home_3pa
+            stats_obj.two_pointers_made = home_2pm
+            stats_obj.two_pointers_attempted = home_2pa
+            stats_obj.free_throws_made = home_ftm
+            stats_obj.free_throws_attempted = home_fta
+            stats_obj.off_rebounds = home_off_reb
+            stats_obj.def_rebounds = home_def_reb
+            stats_obj.assists = home_ast
+            stats_obj.steals = home_stl
+            stats_obj.blocks = home_blk
+            stats_obj.turnovers = home_tov
+            stats_obj.personal_fouls = home_pf
+            stats_obj.echnical_fouls = home_tf
+            stats_obj.save()
+            data = {'stats_obj': 'updated'}
+        return JsonResponse(data)
 
 
 """
