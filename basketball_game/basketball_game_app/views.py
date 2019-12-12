@@ -3,10 +3,14 @@ from datetime import date
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import (DetailView,
+                                  DeleteView,
+                                  UpdateView,
+                                  CreateView,
+                                  )
 
+from basketball_game_app.forms import NewGameForm
 from basketball_game_app.validators import validate_positive_int
 from basketball_game_app.models import (Teams,
                                         Players,
@@ -15,20 +19,12 @@ from basketball_game_app.models import (Teams,
                                         Part,
                                         TeamStats,
                                         )
-from django.views.generic import (FormView,
-                                  ListView,
-                                  DetailView,
-                                  DeleteView,
-                                  UpdateView,
-                                  CreateView,
-                                  )
-from basketball_game_app.forms import NewGameForm
 
 
 class AllTeamsView(View):
     def get(self, request):
-        eastern_conference = Teams.objects.filter(conference_id=1)
-        western_conference = Teams.objects.filter(conference_id=2)
+        eastern_conference = Teams.objects.filter(conference_id=1).order_by("-games_won", "games_played")
+        western_conference = Teams.objects.filter(conference_id=2).order_by("-games_won", "games_played")
         return render(request, 'basketball_game_app/all_teams.html',
                       context={'east': eastern_conference, 'west': western_conference})
 
@@ -185,6 +181,9 @@ class SaveTeamStats(View):
 
     def post(self, request):
         game_id = request.POST.get("game_id")
+        if not (validate_positive_int(game_id)):
+            return False
+        game_id = int(game_id)
         game = Games.objects.get(id=game_id)
         update_team = request.POST.get('team')
         if update_team == "home":

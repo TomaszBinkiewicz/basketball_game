@@ -29,6 +29,8 @@ $(document).ready(() => {
                 let element = team_home.find(`p.${property}`);
                 element.text(data[property]);
             }
+            let total_score = parseInt(data["3Pm"]) * 3 + parseInt(data["2Pm"]) * 2 + parseInt(data["FTm"]);
+            team_home_score_total.val(total_score);
         },
         error: function (data) {
             alert('error loading home team stats');
@@ -49,6 +51,8 @@ $(document).ready(() => {
                 let element = team_away.find(`p.${property}`);
                 element.text(data[property]);
             }
+            let total_score = parseInt(data["3Pm"]) * 3 + parseInt(data["2Pm"]) * 2 + parseInt(data["FTm"]);
+            team_away_score_total.val(total_score);
         },
         error: function (data) {
             alert('error loading guest team stats');
@@ -56,7 +60,6 @@ $(document).ready(() => {
     });
 
     // reaction to buttons
-
     buttons_home.on("click", function (event) {
         event.preventDefault();
         let home_score = parseInt(team_home_score.val());
@@ -99,7 +102,7 @@ $(document).ready(() => {
                 console.log('succsess');
             },
             error: function (data) {
-                console.log(data);
+                alert('server connection denied');
             }
         });
     });
@@ -146,7 +149,7 @@ $(document).ready(() => {
                 console.log('succsess');
             },
             error: function (data) {
-                console.log(data);
+                alert('server connection denied')
             }
         });
     });
