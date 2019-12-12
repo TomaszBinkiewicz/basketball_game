@@ -21,6 +21,11 @@ from basketball_game_app.models import (Teams,
                                         )
 
 
+class Base(View):
+    def get(self, request):
+        return render(request, 'basketball_game_app/base.html')
+
+
 class AllTeamsView(View):
     def get(self, request):
         eastern_conference = Teams.objects.filter(conference_id=1).order_by("-games_won", "games_played")

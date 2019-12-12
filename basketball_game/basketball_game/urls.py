@@ -19,6 +19,8 @@ from basketball_game_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.Base.as_view(), name='base'),
+
     path('all-teams/', views.AllTeamsView.as_view(), name='all-teams'),
     path('team/<int:pk>/', views.TeamDetailView.as_view(), name='team-detail'),
     path('add-team/', views.TeamCreate.as_view(), name='add-team'),

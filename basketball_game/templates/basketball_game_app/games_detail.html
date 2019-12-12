@@ -1,8 +1,6 @@
 {% extends 'basketball_game_app/menu.html' %}
 {% block content %}
-    <p>{{ object.team }}</p>
-    <strong>{{ object }}</strong>
-    <br><br>
+    <p><strong>{{ object }}</strong></p>
     <table>
         <tr>
             <th>TEAM</th>
@@ -105,4 +103,6 @@
             <td>{{ object.get_team_away_stats.get.technical_fouls }}</td>
         </tr>
     </table>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/game-detail.css' %}">
 {% endblock %}
