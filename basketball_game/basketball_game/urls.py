@@ -38,6 +38,7 @@ urlpatterns = [
     path('game-detail/<int:pk>/', views.GameDetailView.as_view(), name='game-detail'),
 
     path('save-team-stats/', views.SaveTeamStats.as_view(), name='save-team-stats'),
+    path('get-team-stats/', views.GetTeamStats.as_view(), name='get-team-stats'),
 ]
 
 

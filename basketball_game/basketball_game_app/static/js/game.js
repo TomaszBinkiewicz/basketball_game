@@ -1,5 +1,6 @@
 $(document).ready(() => {
 
+    let game_id = $('form').find('#game_id').val();
     // Adding points & stats
     let team_home = $("div#div_team1");
     let team_away = $("div#div_team2");
@@ -11,6 +12,50 @@ $(document).ready(() => {
     let buttons_away = team_away.find("button");
     team_home_score.val(0);
     team_away_score.val(0);
+
+    // accessing data from db at the start of each game part
+
+    $.ajax({
+        url: "/get-team-stats/",
+        data: {
+            "game_id": game_id,
+            "team": "home",
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            for (let property in data) {
+                let element = team_home.find(`p.${property}`);
+                element.text(data[property]);
+            }
+        },
+        error: function (data) {
+            alert('error loading home team stats');
+        }
+    });
+
+    $.ajax({
+        url: "/get-team-stats/",
+        data: {
+            "game_id": game_id,
+            "team": "away",
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            for (let property in data) {
+                let element = team_away.find(`p.${property}`);
+                element.text(data[property]);
+            }
+        },
+        error: function (data) {
+            alert('error loading guest team stats');
+        }
+    });
+
+    // reaction to buttons
 
     buttons_home.on("click", function (event) {
         event.preventDefault();
@@ -39,7 +84,6 @@ $(document).ready(() => {
         }
 
         // saving atats
-        let game_id = $('form').find('#game_id').val();
         let csrf_token = $('[name=csrfmiddlewaretoken]');
         $.ajax({
             url: "/save-team-stats/",
@@ -51,10 +95,10 @@ $(document).ready(() => {
             },
             type: "POST",
             dataType: "json",
-            success: function(data){
+            success: function (data) {
                 console.log('succsess');
             },
-            error:function(data){
+            error: function (data) {
                 console.log(data);
             }
         });
@@ -87,7 +131,6 @@ $(document).ready(() => {
         }
 
         // saving atats
-        let game_id = $('form').find('#game_id').val();
         let csrf_token = $('[name=csrfmiddlewaretoken]');
         $.ajax({
             url: "/save-team-stats/",
@@ -99,14 +142,13 @@ $(document).ready(() => {
             },
             type: "POST",
             dataType: "json",
-            success: function(data){
+            success: function (data) {
                 console.log('succsess');
             },
-            error:function(data){
+            error: function (data) {
                 console.log(data);
             }
         });
     });
-
 
 });

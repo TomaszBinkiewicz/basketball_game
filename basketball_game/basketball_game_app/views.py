@@ -231,3 +231,27 @@ class SaveTeamStats(View):
             stats_obj.save()
             data = {'stats_obj': 'saved'}
         return JsonResponse(data)
+
+
+class GetTeamStats(View):
+    def get(self, request):
+        game_id = request.GET.get("game_id")
+        game = Games.objects.get(id=game_id)
+        update_team = request.GET.get('team')
+        if update_team == "home":
+            team = game.team_home
+        elif update_team == "away":
+            team = game.team_away
+        try:
+            stats_obj = get_object_or_404(TeamStats, game_id=game_id, team=team)
+        except Http404:
+            stats_obj = TeamStats.objects.create(game=game, team=team)
+        else:
+            data = {"team": team.name, "3Pm": stats_obj.three_pointers_made, "2Pm": stats_obj.two_pointers_made,
+                    "FTm": stats_obj.free_throws_made, "3Pa": stats_obj.three_pointers_attempted,
+                    "2Pa": stats_obj.two_pointers_attempted, "FTa": stats_obj.free_throws_attempted,
+                    "OffReb": stats_obj.off_rebounds, "DefReb": stats_obj.def_rebounds, "Ast": stats_obj.assists,
+                    "Stl": stats_obj.steals, "Blk": stats_obj.blocks, "Tov": stats_obj.turnovers,
+                    "PF": stats_obj.personal_fouls, "TF": stats_obj.technical_fouls}
+
+        return JsonResponse(data)
