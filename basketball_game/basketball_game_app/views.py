@@ -42,12 +42,14 @@ class TeamCreate(CreateView):
     model = Teams
     fields = '__all__'
     template_name = 'basketball_game_app/add_team.html'
+    success_url = reverse_lazy('all-teams')
 
 
 class TeamUpdate(UpdateView):
     model = Teams
     fields = '__all__'
     template_name_suffix = '_update_form'
+    success_url = reverse_lazy('all-teams')
 
 
 class TeamDelete(DeleteView):
@@ -64,12 +66,14 @@ class PlayerCreate(CreateView):
     model = Players
     fields = '__all__'
     template_name = 'basketball_game_app/add_player.html'
+    success_url = reverse_lazy('all-players')
 
 
 class PlayerUpdate(UpdateView):
     model = Players
     fields = '__all__'
     template_name_suffix = '_update_form'
+    success_url = reverse_lazy('all-players')
 
 
 class AllPlayersView(View):
@@ -80,6 +84,14 @@ class AllPlayersView(View):
         return render(request, 'basketball_game_app/all_players.html',
                       context={'players': all_players, 'teams': teams, 'groups': groups})
 
+
+class TeamPlayersView(View):
+    def get(self, request, team_id):
+        team_players = Players.objects.filter(team_id=team_id)
+        teams = Teams.objects.all()
+        groups = Group.objects.all()
+        return render(request, 'basketball_game_app/all_players.html',
+                      context={'players': team_players, 'teams': teams, 'groups': groups, 'team_id': team_id})
 
 class PlayerDelete(DeleteView):
     model = Players

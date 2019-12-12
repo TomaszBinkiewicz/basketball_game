@@ -91,3 +91,7 @@ div.form-div {
 div.detail-div {
     text-align: center;
 }
+
+select option{
+    width: 40px; text-align-last:center;
+}

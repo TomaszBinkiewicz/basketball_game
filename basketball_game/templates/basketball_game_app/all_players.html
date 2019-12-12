@@ -1,10 +1,23 @@
 {% extends 'basketball_game_app/menu.html' %}
 {% block content %}
     <div class="content-list">
+        <select id="players-team">
+            <option value="all">---all---</option>
+            {% for team in teams %}
+                {% if team.id == team_id %}
+                <option value="{{ team.id }}" selected>{{ team }}</option>
+                {% else %}
+                <option value="{{ team.id }}">{{ team }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
         <ul>
             {% for player in players %}
                 <li><a href="{% url 'player-detail' player.id %}">{{ player }}</a></li>
             {% endfor %}
         </ul>
     </div>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="{% static "js/all-players.js" %}"></script>
 {% endblock %}
