@@ -60,6 +60,7 @@ div#game-data {
     width: 80%;
     margin-right: 10%;
     margin-left: 10%;
+    text-align: center;
 }
 
 div#div_team1, div#div_team2 {
