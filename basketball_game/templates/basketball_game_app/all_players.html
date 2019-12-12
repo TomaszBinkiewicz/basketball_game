@@ -1,8 +1,10 @@
 {% extends 'basketball_game_app/menu.html' %}
 {% block content %}
-    <ul>
-        {% for player in players %}
-            <li><a href="{% url 'player-detail' player.id %}">{{ player }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="content-list">
+        <ul>
+            {% for player in players %}
+                <li><a href="{% url 'player-detail' player.id %}">{{ player }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

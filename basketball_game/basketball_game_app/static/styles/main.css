@@ -1,0 +1,92 @@
+body {
+    background-image: url("../images/beanstalk.png");
+}
+
+a[href] {
+    color: rgb(30, 30, 30);
+    text-decoration: none;
+}
+
+div {
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+div.content-list {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: center;
+}
+
+div.content-list ul {
+    list-style: none;
+}
+
+div.content-list ul li {
+    margin-top: 10px;
+}
+
+div.menu {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 50px;
+}
+
+ul.menu, li.menu {
+    list-style: none;
+    display: inline;
+}
+
+a.menu {
+    text-decoration: none;
+    width: 10%;
+    text-align: center;
+    color: #000;
+    border: 2px outset #ccc;
+    padding: 5px;
+    margin: 3.5%;
+}
+
+div#game-data {
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+div#div_team1, div#div_team2 {
+    width: 39%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: inline-block;
+}
+
+div#div_team2 table, table td {
+    border-width: 1px;
+    border-style: solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+div#div_team1 table, table td {
+    border-width: 1px;
+    border-style: solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+div.form-div {
+    text-align: center;
+}
+
+div.detail-div {
+    text-align: center;
+}
