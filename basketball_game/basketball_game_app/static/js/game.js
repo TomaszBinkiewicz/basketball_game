@@ -1,7 +1,6 @@
 $(document).ready(() => {
 
     // Adding points & stats
-
     let team_home = $("div#div_team1");
     let team_away = $("div#div_team2");
     let team_home_score = team_home.find("#team_home_score");
@@ -39,6 +38,26 @@ $(document).ready(() => {
             corresponding_field.text(current);
         }
 
+        // saving atats
+        let game_id = $('form').find('#game_id').val();
+        let csrf_token = $('[name=csrfmiddlewaretoken]');
+        $.ajax({
+            url: "/save-team-stats/",
+            data: {
+                "csrfmiddlewaretoken": csrf_token.val(),
+                "game_id": game_id,
+                "stat_name": class_name,
+                "team": "home",
+            },
+            type: "POST",
+            dataType: "json",
+            success: function(data){
+                console.log('succsess');
+            },
+            error:function(data){
+                console.log(data);
+            }
+        });
     });
 
     buttons_away.on("click", function (event) {
@@ -66,59 +85,28 @@ $(document).ready(() => {
             let current = parseInt(corresponding_field.text()) + 1;
             corresponding_field.text(current);
         }
-    });
 
-
-    // Saving stats
-    let end_quarter_button = $('#end_quarter');
-
-    end_quarter_button.on("click", function (event) {
-        // TODO: save stats to db
-
+        // saving atats
         let game_id = $('form').find('#game_id').val();
-
-        let home_3Pm = team_home.find("p.3Pm").eq(0).text();
-        let home_2Pm = team_home.find("p.2Pm").eq(0).text();
-        let home_FTm = team_home.find("p.FTm").eq(0).text();
-        let home_3Pa = team_home.find("p.3Pa").eq(0).text();
-        let home_2Pa = team_home.find("p.2Pa").eq(0).text();
-        let home_FTa = team_home.find("p.FTa").eq(0).text();
-
-        let home_OffReb = team_home.find("p.OffReb").eq(0).text();
-        let home_DefReb = team_home.find("p.DefReb").eq(0).text();
-        let home_Ast = team_home.find("p.Ast").eq(0).text();
-        let home_Stl = team_home.find("p.Stl").eq(0).text();
-        let home_Blk = team_home.find("p.Blk").eq(0).text();
-
-        let home_Tov = team_home.find("p.Tov").eq(0).text();
-        let home_PF = team_home.find("p.PF").eq(0).text();
-        let home_TF = team_home.find("p.TF").eq(0).text();
-
-
-        $.ajax(/save-team-stats/, {
+        let csrf_token = $('[name=csrfmiddlewaretoken]');
+        $.ajax({
+            url: "/save-team-stats/",
             data: {
+                "csrfmiddlewaretoken": csrf_token.val(),
                 "game_id": game_id,
-                "home_3Pm": home_3Pm,
-                "home_2Pm": home_2Pm,
-                "home_FTm": home_FTm,
-                "home_3Pa": home_3Pa,
-                "home_2Pa": home_2Pa,
-                "home_FTa": home_FTa,
-                "home_OffReb": home_OffReb,
-                "home_DefReb": home_DefReb,
-                "home_Ast": home_Ast,
-                "home_Stl": home_Stl,
-                "home_Blk": home_Blk,
-                "home_Tov": home_Tov,
-                "home_PF": home_PF,
-                "home_TF": home_TF,
+                "stat_name": class_name,
+                "team": "away",
             },
             type: "POST",
-            dataType: "json"
-        }).success(function(){
-            console.log('succsess')
-        })
-        // TODO: repeat for guest team
+            dataType: "json",
+            success: function(data){
+                console.log('succsess');
+            },
+            error:function(data){
+                console.log(data);
+            }
+        });
     });
+
 
 });
