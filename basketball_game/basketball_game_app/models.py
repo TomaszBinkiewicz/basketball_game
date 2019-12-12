@@ -22,7 +22,7 @@ class Teams(models.Model):
 
     @property
     def wins_percentage(self):
-        return self.games_won / self.games_played
+        return round(self.games_won / self.games_played, 3)
 
     def __str__(self):
         return self.name
@@ -54,6 +54,12 @@ class Games(models.Model):
     team_away = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True, related_name='away_games')
     team_home_score = models.IntegerField(null=True)
     team_away_score = models.IntegerField(null=True)
+
+    def get_team_home_stats(self):
+        return self.teamstats_set.filter(team=self.team_home)
+
+    def get_team_away_stats(self):
+        return self.teamstats_set.filter(team=self.team_away)
 
     def __str__(self):
         return f'{self.date}, {self.team_home} vs {self.team_away}'
@@ -104,16 +110,22 @@ class Stats(models.Model):
 
     @property
     def fg_percentage(self):
-        return (self.three_pointers_made + self.two_pointers_made) / (
-                self.three_pointers_attempted + self.two_pointers_attempted)
+        if self.three_pointers_attempted + self.two_pointers_attempted == 0:
+            return 0
+        return round((self.three_pointers_made + self.two_pointers_made) / (
+                self.three_pointers_attempted + self.two_pointers_attempted), 2)
 
     @property
     def ft_percentage(self):
-        return self.free_throws_made / self.free_throws_attempted
+        if self.free_throws_attempted == 0:
+            return 0
+        return round(self.free_throws_made / self.free_throws_attempted, 2)
 
     @property
     def p3_percentage(self):
-        return self.three_pointers_made / self.three_pointers_attempted
+        if self.three_pointers_attempted == 0:
+            return 0
+        return round(self.three_pointers_made / self.three_pointers_attempted, 2)
 
     class Meta:
         abstract = True

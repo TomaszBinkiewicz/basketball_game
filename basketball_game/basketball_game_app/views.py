@@ -167,7 +167,7 @@ class GameView(View):
 
 class AllGamesView(View):
     def get(self, request):
-        all_games = Games.objects.all().order_by('-date')
+        all_games = Games.objects.all().order_by('-date', '-id')
         return render(request, 'basketball_game_app/all_games.html', context={'games': all_games})
 
 

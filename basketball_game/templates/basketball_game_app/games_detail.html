@@ -5,7 +5,7 @@
     <br><br>
     <table>
         <tr>
-            <th>team</th>
+            <th>TEAM</th>
             {% for part in object.part_set.all %}
                 {% if part.name < 5 %}
                     <th>Q{{ part.name }}</th>
@@ -34,6 +34,75 @@
             <th>
                 {{ object.team_away_score }}
             </th>
+        </tr>
+    </table>
+    <table class="team_stats">
+        <tr>
+            <th>TEAM</th>
+            <th>SCORE</th>
+            <th>FGm</th>
+            <th>FGa</th>
+            <th>FG%</th>
+            <th>3Pm</th>
+            <th>3Pa</th>
+            <th>3P%</th>
+            <th>FTm</th>
+            <th>FTa</th>
+            <th>FT%</th>
+            <th>REB</th>
+            <th>OREB</th>
+            <th>DREB</th>
+            <th>AST</th>
+            <th>STL</th>
+            <th>BLK</th>
+            <th>TOV</th>
+            <th>PF</th>
+            <th>TF</th>
+        </tr>
+        <tr>
+
+            <th>{{ object.team_home }}</th>
+            <th>{{ object.get_team_home_stats.get.points }}</th>
+            <td>{{ object.get_team_home_stats.get.two_pointers_made|add:object.get_team_home_stats.get.three_pointers_made }}</td>
+            <td>{{ object.get_team_home_stats.get.two_pointers_attempted|add:object.get_team_home_stats.get.three_pointers_attempted }}</td>
+            <td>{{ object.get_team_home_stats.get.fg_percentage }}</td>
+            <td>{{ object.get_team_home_stats.get.three_pointers_made }}</td>
+            <td>{{ object.get_team_home_stats.get.three_pointers_attempted }}</td>
+            <td>{{ object.get_team_home_stats.get.p3_percentage }}</td>
+            <td>{{ object.get_team_home_stats.get.free_throws_made }}</td>
+            <td>{{ object.get_team_home_stats.get.free_throws_attempted }}</td>
+            <td>{{ object.get_team_home_stats.get.ft_percentage }}</td>
+            <td>{{ object.get_team_home_stats.get.total_rebounds }}</td>
+            <td>{{ object.get_team_home_stats.get.off_rebounds }}</td>
+            <td>{{ object.get_team_home_stats.get.def_rebounds }}</td>
+            <td>{{ object.get_team_home_stats.get.assists }}</td>
+            <td>{{ object.get_team_home_stats.get.steals }}</td>
+            <td>{{ object.get_team_home_stats.get.blocks }}</td>
+            <td>{{ object.get_team_home_stats.get.turnovers }}</td>
+            <td>{{ object.get_team_home_stats.get.personal_fouls }}</td>
+            <td>{{ object.get_team_home_stats.get.technical_fouls }}</td>
+        </tr>
+        <tr>
+            <th>{{ object.team_away }}</th>
+            <th>{{ object.get_team_away_stats.get.points }}</th>
+            <td>{{ object.get_team_away_stats.get.two_pointers_made|add:object.get_team_away_stats.get.three_pointers_made }}</td>
+            <td>{{ object.get_team_away_stats.get.two_pointers_attempted|add:object.get_team_away_stats.get.three_pointers_attempted }}</td>
+            <td>{{ object.get_team_away_stats.get.fg_percentage }}</td>
+            <td>{{ object.get_team_away_stats.get.three_pointers_made }}</td>
+            <td>{{ object.get_team_away_stats.get.three_pointers_attempted }}</td>
+            <td>{{ object.get_team_away_stats.get.p3_percentage }}</td>
+            <td>{{ object.get_team_away_stats.get.free_throws_made }}</td>
+            <td>{{ object.get_team_away_stats.get.free_throws_attempted }}</td>
+            <td>{{ object.get_team_away_stats.get.ft_percentage }}</td>
+            <td>{{ object.get_team_away_stats.get.total_rebounds }}</td>
+            <td>{{ object.get_team_away_stats.get.off_rebounds }}</td>
+            <td>{{ object.get_team_away_stats.get.def_rebounds }}</td>
+            <td>{{ object.get_team_away_stats.get.assists }}</td>
+            <td>{{ object.get_team_away_stats.get.steals }}</td>
+            <td>{{ object.get_team_away_stats.get.blocks }}</td>
+            <td>{{ object.get_team_away_stats.get.turnovers }}</td>
+            <td>{{ object.get_team_away_stats.get.personal_fouls }}</td>
+            <td>{{ object.get_team_away_stats.get.technical_fouls }}</td>
         </tr>
     </table>
 {% endblock %}
