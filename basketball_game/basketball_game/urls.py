@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from basketball_game_app import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('all-teams/', views.AllTeamsView.as_view(), name='all-teams'),
@@ -36,6 +35,7 @@ urlpatterns = [
     path('game/<int:pk>/<int:quarter>', views.GameView.as_view(), name='game-view'),
     path('all-games/', views.AllGamesView.as_view(), name='all-games'),
     path('game-detail/<int:pk>/', views.GameDetailView.as_view(), name='game-detail'),
+
+    path('save-team-stats/', views.SaveTeamStats.as_view(), name='save-team-stats'),
+    path('get-team-stats/', views.GetTeamStats.as_view(), name='get-team-stats'),
 ]
-
-
