@@ -1,18 +1,19 @@
 from django import forms
-from datetime import date
 from basketball_game_app.models import (
     Games,
 )
-
-THIS_YEAR = date.today().year
-YEARS = range(THIS_YEAR - 2, THIS_YEAR + 3)
 
 
 class NewGameForm(forms.ModelForm):
     class Meta:
         model = Games
         exclude = ['team_home_score', 'team_away_score']
-        widgets = {'date': forms.SelectDateWidget(years=YEARS)}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['date'] = forms.DateField(
+            widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+        )
 
     def clean(self):
         cleaned_data = super().clean()
