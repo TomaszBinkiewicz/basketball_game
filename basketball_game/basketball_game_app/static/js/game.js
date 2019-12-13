@@ -13,6 +13,8 @@ $(document).ready(() => {
     team_home_score.val(0);
     team_away_score.val(0);
 
+
+    let oldURL = document.referrer;
     // accessing data from db at the start of each game part
 
     $.ajax({
@@ -24,7 +26,6 @@ $(document).ready(() => {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             for (let property in data) {
                 let element = team_home.find(`p.${property}`);
                 element.text(data[property]);
@@ -33,7 +34,11 @@ $(document).ready(() => {
             team_home_score_total.val(total_score);
         },
         error: function (data) {
-            alert('error loading home team stats');
+            if (oldURL === 'http://127.0.0.1:8000/new-game/'){
+                console.log('redirected from http://127.0.0.1:8000/new-game/');
+            } else {
+                alert('error loading home team stats');
+            }
         }
     });
 
@@ -46,7 +51,6 @@ $(document).ready(() => {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             for (let property in data) {
                 let element = team_away.find(`p.${property}`);
                 element.text(data[property]);
@@ -55,7 +59,11 @@ $(document).ready(() => {
             team_away_score_total.val(total_score);
         },
         error: function (data) {
-            alert('error loading guest team stats');
+            if (oldURL === 'http://127.0.0.1:8000/new-game/'){
+                console.log('redirected from http://127.0.0.1:8000/new-game/');
+            } else {
+                alert('error loading guest team stats');
+            }
         }
     });
 
