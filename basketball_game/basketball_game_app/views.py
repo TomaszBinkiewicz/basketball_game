@@ -78,7 +78,7 @@ class PlayerUpdate(UpdateView):
 
 class AllPlayersView(View):
     def get(self, request):
-        all_players = Players.objects.all()
+        all_players = Players.objects.all().order_by('last_name')
         teams = Teams.objects.all()
         groups = Group.objects.all()
         return render(request, 'basketball_game_app/all_players.html',
@@ -87,7 +87,7 @@ class AllPlayersView(View):
 
 class TeamPlayersView(View):
     def get(self, request, team_id):
-        team_players = Players.objects.filter(team_id=team_id)
+        team_players = Players.objects.filter(team_id=team_id).order_by('last_name')
         teams = Teams.objects.all()
         groups = Group.objects.all()
         return render(request, 'basketball_game_app/all_players.html',
@@ -269,5 +269,4 @@ class GetTeamStats(View):
                     "OffReb": stats_obj.off_rebounds, "DefReb": stats_obj.def_rebounds, "Ast": stats_obj.assists,
                     "Stl": stats_obj.steals, "Blk": stats_obj.blocks, "Tov": stats_obj.turnovers,
                     "PF": stats_obj.personal_fouls, "TF": stats_obj.technical_fouls}
-
         return JsonResponse(data)

@@ -4,7 +4,7 @@ body {
 
 a[href] {
     color: rgb(30, 30, 30);
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 div {
@@ -54,6 +54,7 @@ a.menu {
     border: 2px outset #ccc;
     padding: 5px;
     margin: 3.5%;
+    background-color: rgba(10,10,10,0.3);
 }
 
 div#game-data {

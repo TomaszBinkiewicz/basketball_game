@@ -32,7 +32,7 @@ class Players(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=128)
     date_of_birth = models.DateField()
-    team = models.ForeignKey(Teams, on_delete=models.DO_NOTHING)
+    team = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True)
 
     @property
     def age(self):
